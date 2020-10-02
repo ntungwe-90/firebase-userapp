@@ -13,7 +13,8 @@ import thunk from 'redux-thunk';
 
 
 
-const store = createStore(UsersReducer, 
+const store = createStore(
+  UsersReducer, 
   compose(
     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
     reduxFirestore(firebase),
@@ -22,9 +23,11 @@ const store = createStore(UsersReducer,
 );
 
 ReactDOM.render(
+  <React.StrictMode>
   <Provider store={store}>
     <Router />
-  </Provider>,
+  </Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

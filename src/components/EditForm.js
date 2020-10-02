@@ -7,34 +7,36 @@ export class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:props.user.name,
-            email:props.user.email,
-            gen:props.user.gen
+            name: props.user.name,
+            email: props.user.email,
+            gen: props.user.gen
         };
         this.id = props.match.params.id
     }
 
-    handleChange = e => {
+    handleChange = (e) => {
 this.setState({
     [e.target.name]:e.target.value
 });
     };
 
-    handleSubmit = e => {
+    handleSubmit = (e) => {
         e.preventDefault();
         const updatedInfo = {
             name: this.state.name,
             email: this.state.email,
-            gen: this.state.gen
+            gen: this.state.gen,
         };
+
+        console.log(updatedInfo);
 
      this.props.editUser(this.id, updatedInfo);
      this.setState({
          name:"",
          email:"",
-         gen: ""
+         gen: "",
      });
-     this.props.history.push('/');
+     this.props.history.push("/");
  };
  render(){
      return(
@@ -76,12 +78,14 @@ this.setState({
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+    return{
   user: state.users.find(user => user.id === ownProps.match.params.id)
-});
+  };
+};
 
 const mapDispatchToProps = {
-  editUser: editUser
+  editUser: editUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditForm);
